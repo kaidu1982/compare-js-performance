@@ -10,7 +10,7 @@ const uuidv4 = require('uuid/v4');
 
 
 const testCount = 3000000;
-const makeID = uuidv4;
+const makeID = () => 'makeid';
 
 const makeData = (time, id) => {
     return {
