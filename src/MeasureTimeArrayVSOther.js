@@ -99,6 +99,9 @@ const loopLinkedList = linkedList => {
 };
 
 
+//TODO make a delete function
+
+
 const arr = makeArray(testCount);
 const set = makeSet(testCount);
 const linkedList = makeLinkedList(testCount);
