@@ -10,6 +10,7 @@ const uuidv4 = require('uuid/v4');
 
 
 const testCount = 3000000;
+const deleteCount = Number.parseInt(testCount * 0.01);
 const makeID = () => 'makeid';
 
 const makeData = (time, id) => {
@@ -41,6 +42,12 @@ const loopArray = arr => {
     // console.log("Array count=>"+loopCount);
 };
 
+const deleteArray = (arr, deleteN) => {
+    console.time("Time of delete array");
+    arr.splice(0, deleteN);
+    console.timeEnd("Time of delete array");
+};
+
 
 const makeSet = n => {
     const set = new Set();
@@ -52,6 +59,17 @@ const makeSet = n => {
     console.timeEnd("Time of making set");
 
     return set;
+};
+
+const deleteSet = (set, deleteN) => {
+    console.time("Time of delete set");
+    let count = 0;
+    set.forEach(data => {
+        if(count < deleteN) set.delete(data)
+        count++;
+    })
+
+    console.timeEnd("Time of delete set");
 };
 
 const loopSet = set => {
@@ -85,6 +103,21 @@ const makeLinkedList = n => {
     };
 };
 
+const deleteLinkedList = (linkedList, n) => {
+    console.time("Time of delete LinkedList");
+    let data = linkedList.head;
+    let loopCount = 1;
+    while(loopCount < n) {
+        if(data.time > 0) loopCount++
+
+        data = data.next;
+    }
+
+    linkedList.head = data;
+
+    console.timeEnd("Time of delete LinkedList");
+};
+
 const loopLinkedList = linkedList => {
     let data = linkedList.head;
 
@@ -99,15 +132,16 @@ const loopLinkedList = linkedList => {
 };
 
 
-//TODO make a delete function
-
 
 const arr = makeArray(testCount);
-const set = makeSet(testCount);
 const linkedList = makeLinkedList(testCount);
-
+deleteArray(arr, deleteCount);
+deleteLinkedList(linkedList, deleteCount);
 
 loopArray(arr);
-loopSet(set);
 loopLinkedList(linkedList);
+
+const set = makeSet(testCount);
+deleteSet(set, deleteCount);
+loopSet(set);
 
